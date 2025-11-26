@@ -181,8 +181,10 @@ namespace HRProject.Controllers
             return View("~/Views/Competences/Profile.cshtml", model);
         }
 
-
-        // get all competence for all users - for admin/HR overview
+        /// <summary>
+        /// GET: /Competences/AllUserCompetences
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> AllUserCompetences()
         {
@@ -192,8 +194,9 @@ namespace HRProject.Controllers
                 .OrderBy(uc => uc.User.Email)
                 .ThenBy(uc => uc.Competence.Name)
                 .ToListAsync();
-            return View("~/Views/Competences/AllUserCompetences.cshtml", allUserCompetences);
 
+            // ✅ no explicit path – MVC will look in Views/Competences/AllUserCompetences.cshtml
+            return View("/Views/Competences/AllUserCompetences.cshtml", allUserCompetences);
         }
     }
 }
