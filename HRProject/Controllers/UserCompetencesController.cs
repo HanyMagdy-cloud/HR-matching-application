@@ -181,7 +181,10 @@ namespace HRProject.Controllers
             return View("~/Views/Competences/Profile.cshtml", model);
         }
 
-        // GET: /Competences/AllUserCompetences
+        /// <summary>
+        /// GET: /Competences/AllUserCompetences
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> AllUserCompetences()
         {
