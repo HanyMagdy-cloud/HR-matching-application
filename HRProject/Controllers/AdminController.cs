@@ -13,11 +13,16 @@ namespace HRProject.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdminController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public AdminController(
+            ApplicationDbContext context,
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET: /Admin
@@ -38,24 +43,118 @@ namespace HRProject.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Users()
         {
-            var users = await _userManager.Users.ToListAsync();
 
-            var model = new List<UserWithRolesViewModel>();
-
-            foreach (var user in users)
             {
-                var roles = await _userManager.GetRolesAsync(user);
+                var users = await _userManager.Users.ToListAsync();
+                var model = new List<UserWithRolesViewModel>();
 
-                model.Add(new UserWithRolesViewModel
+                foreach (var user in users)
                 {
-                    UserId = user.Id,
-                    Email = user.Email,
-                    FullName = user.FullName,
-                    Roles = roles.ToList()
-                });
+                    var roles = await _userManager.GetRolesAsync(user);
+
+                    model.Add(new UserWithRolesViewModel
+                    {
+                        UserId = user.Id,
+                        Email = user.Email,
+                        FullName = user.FullName,
+                        Roles = roles.ToList(),
+                        IsLockedOut = user.LockoutEnd.HasValue && user.LockoutEnd > DateTimeOffset.UtcNow
+                    });
+                }
+
+                // list of all role names for dropdown
+                ViewBag.AllRoles = await _roleManager.Roles
+                    .Select(r => r.Name)
+                    .ToListAsync();
+
+                return View(model);
             }
 
-            return View(model); // Views/Admin/Users.cshtml
+
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateUserRole(string userId, string newRole)
+        {
+            if (string.IsNullOrEmpty(userId))
+                return RedirectToAction(nameof(Users));
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return RedirectToAction(nameof(Users));
+
+            var currentRoles = await _userManager.GetRolesAsync(user);
+
+            // remove all current roles
+            if (currentRoles.Any())
+            {
+                await _userManager.RemoveFromRolesAsync(user, currentRoles);
+            }
+
+            // add new role if selected
+            if (!string.IsNullOrEmpty(newRole))
+            {
+                await _userManager.AddToRoleAsync(user, newRole);
+            }
+
+            TempData["UsersMessage"] = "User role updated.";
+            return RedirectToAction(nameof(Users));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ToggleUserActive(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+                return RedirectToAction(nameof(Users));
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return RedirectToAction(nameof(Users));
+
+            // prevent deactivating yourself (optional safety)
+            if (user.Email == User?.Identity?.Name)
+            {
+                TempData["UsersMessage"] = "You cannot deactivate your own account.";
+                return RedirectToAction(nameof(Users));
+            }
+
+            var now = DateTimeOffset.UtcNow;
+
+            if (user.LockoutEnd.HasValue && user.LockoutEnd > now)
+            {
+                // currently locked -> activate
+                user.LockoutEnd = null;
+                user.LockoutEnabled = false;
+                TempData["UsersMessage"] = "User activated.";
+            }
+            else
+            {
+                // currently active -> deactivate
+                user.LockoutEnabled = true;
+                user.LockoutEnd = now.AddYears(100); // "forever"
+                TempData["UsersMessage"] = "User deactivated.";
+            }
+
+            await _userManager.UpdateAsync(user);
+            return RedirectToAction(nameof(Users));
+        }
+
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
