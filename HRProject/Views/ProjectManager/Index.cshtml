@@ -10,8 +10,16 @@
             A smart tool to define project needs, match the best people, and build high-performing teams.
         </p>
         <div class="mt-4">
-            <a class="btn btn-primary btn-lg">Create Project</a>
-            <a class="btn btn-outline-light btn-lg">Find Team Members</a>
+            <a asp-controller="ProjectManager" asp-action="Create"
+               class="btn btn-primary btn-lg">
+                Create Project
+            </a>
+
+            <a asp-controller="ProjectManager" asp-action="Find"
+               class="btn btn-outline-light btn-lg">
+                Find Team Members
+            </a>
+
         </div>
     </div>
 </div>
