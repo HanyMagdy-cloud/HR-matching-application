@@ -68,12 +68,19 @@
             Empowering HR teams to identify, organize, and develop employee skills with clarity and structure.
         </p>
 
+        <!-- View Competences -->
         <a asp-controller="Competences" asp-action="Index" class="btn btn-primary btn-large me-2">
             <i class="bi bi-lightbulb"></i> View Competences
         </a>
 
-        <a asp-controller="UserCompetences" asp-action="Assign" class="btn btn-outline-light btn-large">
+        <!-- Assign Competence -->
+        <a asp-controller="UserCompetences" asp-action="Assign" class="btn btn-outline-light btn-large me-2">
             <i class="bi bi-award"></i> Assign Competence
+        </a>
+
+        <!-- NEW: HR Dashboard Button (Always Visible) -->
+        <a asp-controller="HR" asp-action="Index" class="btn btn-outline-light btn-large">
+            <i class="bi bi-speedometer2"></i> HR Dashboard
         </a>
     </div>
 </div>
@@ -83,7 +90,7 @@
     <h2 class="text-center fw-bold mb-4">Why This HR Project Matters</h2>
 
     <p class="hr-paragraph text-center">
-        In modern organizations, understanding the **skills and the  capabilities of employees** is essential
+        In modern organizations, understanding the <strong>skills and the capabilities of employees</strong> is essential
         for effective planning, talent development, and strategic growth.
         This system provides HR teams with a clear and organized way to manage competences,
         assign skill levels, and track employee expertise over time.

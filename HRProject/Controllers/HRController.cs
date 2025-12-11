@@ -12,7 +12,7 @@ namespace HRProject.Controllers                      // Same namespace pattern a
     /// This controller contains actions that are intended for the HR role.
     /// For now, we only implement an HR Dashboard.
     /// </summary>
-    [Authorize(Roles = "Admin,HR")]                 // Only users in Admin OR HR roles can access this controller
+    ///[Authorize(Roles = "Admin,HR")]                 // Only users in Admin OR HR roles can access this controller
     public class HRController : Controller
     {
         // Field for the database context, used to query Competences, Users, UserCompetences, etc.
