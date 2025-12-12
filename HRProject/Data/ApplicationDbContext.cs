@@ -15,10 +15,14 @@ namespace HRProject.Data
         public DbSet<Competence> Competences { get; set; }
         public DbSet<UserCompetence> UserCompetences { get; set; }
 
+        public DbSet<MatchSettings> MatchSettings { get; set; }
+
         public DbSet<TeamLeader> TeamLeaders { get; set; }
         public DbSet<TeamMember> TeamMembers { get; set; }
         public DbSet<TeamSkillNeed> TeamSkillNeeds { get; set; }
         public DbSet<TeamGrowthPlan> TeamGrowthPlans { get; set; }
+
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)
