@@ -125,7 +125,7 @@ namespace HRProject.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Competences");
+                    b.ToTable("Competences", (string)null);
                 });
 
             modelBuilder.Entity("HRProject.Models.MatchSettings", b =>
@@ -147,7 +147,7 @@ namespace HRProject.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MatchSettings");
+                    b.ToTable("MatchSettings", (string)null);
                 });
 
             modelBuilder.Entity("HRProject.Models.TeamGrowthPlan", b =>
@@ -180,7 +180,7 @@ namespace HRProject.Data.Migrations
 
                     b.HasIndex("TeamLeaderId");
 
-                    b.ToTable("TeamGrowthPlans");
+                    b.ToTable("TeamGrowthPlans", (string)null);
                 });
 
             modelBuilder.Entity("HRProject.Models.TeamLeader", b =>
@@ -219,7 +219,7 @@ namespace HRProject.Data.Migrations
 
                     b.HasIndex("LeaderUserId");
 
-                    b.ToTable("TeamLeaders");
+                    b.ToTable("TeamLeaders", (string)null);
                 });
 
             modelBuilder.Entity("HRProject.Models.TeamMember", b =>
@@ -243,7 +243,7 @@ namespace HRProject.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TeamMembers");
+                    b.ToTable("TeamMembers", (string)null);
                 });
 
             modelBuilder.Entity("HRProject.Models.TeamSkillNeed", b =>
@@ -273,7 +273,7 @@ namespace HRProject.Data.Migrations
 
                     b.HasIndex("TeamLeaderId");
 
-                    b.ToTable("TeamSkillNeeds");
+                    b.ToTable("TeamSkillNeeds", (string)null);
                 });
 
             modelBuilder.Entity("HRProject.Models.UserCompetence", b =>
@@ -294,7 +294,7 @@ namespace HRProject.Data.Migrations
 
                     b.HasIndex("CompetenceId");
 
-                    b.ToTable("UserCompetences");
+                    b.ToTable("UserCompetences", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
