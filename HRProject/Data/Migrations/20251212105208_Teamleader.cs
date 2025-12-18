@@ -10,9 +10,9 @@ namespace HRProject.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_TeamSkillNeeds_TeamGrowthPlans_CompetenceId",
-                table: "TeamSkillNeeds");
+            //migrationBuilder.DropForeignKey(
+                //name: "FK_TeamSkillNeeds__Competences_CompetenceId",
+                //table: "TeamSkillNeeds");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_UserCompetences_TeamGrowthPlans_CompetenceId",
