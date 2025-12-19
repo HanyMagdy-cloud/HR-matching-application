@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251218115216_projectmanager4tables")]
+    [Migration("20251219195629_projectmanager4tables")]
     partial class projectmanager4tables
     {
         /// <inheritdoc />
