@@ -1,0 +1,81 @@
+﻿@model HRProject.Models.ProjectManager
+
+@{
+    ViewData["Title"] = "Create Project";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<div class="project-header-bg">
+    <div class="project-header-content">
+        <h2><i class="bi bi-folder-plus me-2"></i>Create New Project</h2>
+        <p>Define skills, roles, experience, and timelines to build the perfect team.</p>
+    </div>
+</div>
+
+<div class="container mt-5 mb-5">
+    <div class="project-form-wrapper p-4">
+        <form asp-action="Create" method="post">
+
+            <!-- Project Name -->
+            <div class="mb-4">
+                <label asp-for="Name" class="form-label fw-bold">Project Name</label>
+                <input asp-for="Name" class="form-control project-input" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+                <label asp-for="Description" class="form-label fw-bold">Project Description</label>
+                <textarea asp-for="Description" class="form-control project-input" rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <!-- Skills -->
+            <div class="mb-4">
+                <label asp-for="Skills" class="form-label fw-bold">Required Skills</label>
+                <input asp-for="Skills" class="form-control project-input" placeholder="Example: C#, Azure, UX Design" />
+                <span asp-validation-for="Skills" class="text-danger"></span>
+            </div>
+
+            <!-- Roles Needed -->
+            <div class="mb-4">
+                <label asp-for="RolesNeeded" class="form-label fw-bold">Team Roles Needed</label>
+                <input asp-for="RolesNeeded" class="form-control project-input" placeholder="Example: 2 Developers, 1 Designer" />
+                <span asp-validation-for="RolesNeeded" class="text-danger"></span>
+            </div>
+
+            <!-- Dates -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label asp-for="StartDate" class="form-label fw-bold">Start Date</label>
+                    <input asp-for="StartDate" type="date" class="form-control project-input" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="EndDate" class="form-label fw-bold">End Date</label>
+                    <input asp-for="EndDate" type="date" class="form-control project-input" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Experience Level -->
+            <div class="mb-4">
+                <label asp-for="ExperienceLevel" class="form-label fw-bold">Required Experience Level</label>
+                <select asp-for="ExperienceLevel" class="form-select project-input">
+                    <option>Junior</option>
+                    <option>Mid</option>
+                    <option>Senior</option>
+                    <option>Expert</option>
+                </select>
+                <span asp-validation-for="ExperienceLevel" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary px-4">Create Project</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
