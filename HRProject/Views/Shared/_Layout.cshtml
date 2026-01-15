@@ -44,57 +44,45 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="TeamLeader" asp-action="Index">
-                                <i class="bi bi-people"></i> Team Leader
-                            </a>
-                        </li>
 
-                        @* Admin-only items *@
-                      @*   @if (User.IsInRole("Admin")) *@
-                        
+                        @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("TeamLeader"))
+
+                        {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Roles" asp-action="Create">
-                                    <i class="bi bi-plus-circle"></i> Add Role
+                                <a class="nav-link text-dark" asp-controller="TeamLeader" asp-action="Index">
+                                    <i class="bi bi-people"></i> Team Leader
                                 </a>
                             </li>
+                        }
 
+
+                        @* Admin-only items *@
+                        @*   @if (User.IsInRole("Admin")) *@
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("HR"))
+                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="HR" asp-action="Index">
                                     <i class="bi bi-person-workspace"></i> HR
                                 </a>
                             </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-controller="Roles"
-                               asp-action="Assign">
-                                <i class="bi bi-person-check me-1"></i> Assign Role
-                            </a>
-                        </li>
+                        }
 
-                            @* <li class="nav-item">
+
+
+
+                        @* <li class="nav-item">
                                 <a class="nav-link" asp-controller="MatchSettings" asp-action="Edit">
                                     <i class="bi bi-sliders"></i> Match Settings
                                 </a>
                             </li> *@
 
+                        @if (User.IsInRole("Admin"))
+                        {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Admin" asp-action="Index">
                                     <i class="bi bi-speedometer2"></i> Admin Dashboard
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="ProjectManager" asp-action="Index">
-                                    <i class="bi bi-kanban"></i> Project Manager
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Competences" asp-action="Index">
-                                    <i class="bi bi-list-check"></i> Competences
                                 </a>
                             </li>
 
@@ -105,17 +93,63 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Employee" asp-action="Index">
-                                    <i class="bi bi-person-badge"></i> Employee
+                                <a class="nav-link text-dark"
+                                   asp-area=""
+                                   asp-controller="Roles"
+                                   asp-action="Assign">
+                                    <i class="bi bi-person-check me-1"></i> Assign Role
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="UserCompetences" asp-action="AllUserCompetences">
+                                <a class="nav-link" asp-controller="Roles" asp-action="Create">
+                                    <i class="bi bi-plus-circle"></i> Add Role
+                                </a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="ProjectManager" asp-action="Index">
+                                    <i class="bi bi-kanban"></i> Project Manager
+                                </a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("HR"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Competences" asp-action="Index">
+                                    <i class="bi bi-list-check"></i> Competences
+                                </a>
+                            </li>
+                        }
+
+
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Employee"))
+
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Employee" asp-action="Index">
+                                    <i class="bi bi-person-badge"></i> Employee
+                                </a>
+                            </li>
+                        }
+
+
+                        @if (User.Identity?.IsAuthenticated == true
+                                                && User.Claims.Any(c => c.Type == System.Security.Claims.ClaimTypes.Role))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="UserCompetences" asp-action="AllUserCompetences">
                                     <i class="bi bi-person-circle"></i> Users Profiles
                                 </a>
                             </li>
-                        
+                        }
+
+
 
                         @* Project & Requirements (visible to Admin, HR, PM, PL) *@
                         @if (
@@ -141,16 +175,31 @@
 
     <div class="container">
         <main role="main" class="pb-4">
+
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer mt-auto py-3">
         <div class="container">
-            &copy; 2025 - HRProject -
-            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row align-items-center small">
+
+                <div class="col-md-6 text-center text-md-start">
+                    © 2025 <strong>HR Project</strong> — Lia 1
+                </div>
+
+                <div class="col-md-6 text-center text-md-end">
+                    Project Manager: <strong>Tomas Forsblom</strong> |
+                    <a href="mailto:tomas.forsblom@superiorskills.se">
+                        tomas.forsblom@superiorskills.se
+                    </a>
+                </div>
+
+            </div>
         </div>
     </footer>
+
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -29,3 +29,17 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.footer {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: #e5e7eb;
+}
+
+    .footer a {
+        color: #93c5fd;
+    }
+
+        .footer a:hover {
+            color: #bfdbfe;
+            text-decoration: underline;
+        }
