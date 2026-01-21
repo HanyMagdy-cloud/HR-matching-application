@@ -44,7 +44,7 @@
                             </a>
                         </li>
 
-                        @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("TeamLeader"))
+                        @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Team Leader"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="TeamLeader" asp-action="Index">
@@ -89,7 +89,7 @@
                             </li>
                         }
 
-                        @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                        @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="ProjectManager" asp-action="Index">
