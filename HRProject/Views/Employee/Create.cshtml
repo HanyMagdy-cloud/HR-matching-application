@@ -1,63 +1,97 @@
-﻿ @*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@model HRProject.Models.ApplicationUser
+﻿@model HRProject.Models.ApplicationUser
 
 @{
     ViewData["Title"] = "Add Employee";
 }
 
-<h2>Add Employee</h2>
+<div class="container py-4">
 
-<form asp-action="Create" method="post">
-    <div class="form-group mb-2">
-        <label asp-for="FullName" class="form-label"></label>
-        <input asp-for="FullName" class="form-control" />
-        <span asp-validation-for="FullName" class="text-danger"></span>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <h2 class="mb-4 text-center">
+                        <i class="bi bi-person-plus"></i>
+                        Add Employee
+                    </h2>
+
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+
+                        <div class="row">
+                            <!-- Full Name -->
+                            <div class="col-12 col-md-6 mb-3">
+                                <label asp-for="FullName" class="form-label"></label>
+                                <input asp-for="FullName" class="form-control" />
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-12 col-md-6 mb-3">
+                                <label asp-for="Email" class="form-label"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <!-- Job Title -->
+                            <div class="col-12 col-md-6 mb-3">
+                                <label asp-for="JobTitle" class="form-label"></label>
+                                <input asp-for="JobTitle" class="form-control" />
+                                <span asp-validation-for="JobTitle" class="text-danger"></span>
+                            </div>
+
+                            <!-- Availability -->
+                            <div class="col-12 col-md-6 mb-3">
+                                <label asp-for="AvailabilityPercent" class="form-label"></label>
+                                <input asp-for="AvailabilityPercent"
+                                       class="form-control"
+                                       type="number"
+                                       min="0"
+                                       max="100" />
+                                <span asp-validation-for="AvailabilityPercent" class="text-danger"></span>
+                            </div>
+
+                            <!-- Languages -->
+                            <div class="col-12 mb-3">
+                                <label asp-for="Languages" class="form-label"></label>
+                                <input asp-for="Languages" class="form-control" />
+                            </div>
+
+                            <!-- Certificates -->
+                            <div class="col-12 mb-3">
+                                <label asp-for="Certificates" class="form-label"></label>
+                                <input asp-for="Certificates" class="form-control" />
+                            </div>
+
+                            <!-- Interests -->
+                            <div class="col-12 mb-3">
+                                <label asp-for="Interests" class="form-label"></label>
+                                <input asp-for="Interests" class="form-control" />
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="col-12 d-flex flex-column flex-sm-row gap-2 justify-content-end">
+                                <a asp-action="Index" class="btn btn-secondary">
+                                    Cancel
+                                </a>
+
+                                <button type="submit" class="btn btn-success">
+                                    <i class="bi bi-check-circle"></i>
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
     </div>
-
-    <div class="form-group mb-2">
-        <label asp-for="Email" class="form-label"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-2">
-        <label asp-for="JobTitle" class="form-label"></label>
-        <input asp-for="JobTitle" class="form-control" />
-        <span asp-validation-for="JobTitle" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-2">
-        <label asp-for="AvailabilityPercent" class="form-label"></label>
-        <input asp-for="AvailabilityPercent" class="form-control" type="number" min="0" max="100" />
-        <span asp-validation-for="AvailabilityPercent" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-2">
-        <label asp-for="Languages" class="form-label"></label>
-        <input asp-for="Languages" class="form-control" />
-    </div>
-
-    <div class="form-group mb-2">
-        <label asp-for="Certificates" class="form-label"></label>
-        <input asp-for="Certificates" class="form-control" />
-    </div>
-
-    <div class="form-group mb-2">
-        <label asp-for="Interests" class="form-label"></label>
-        <input asp-for="Interests" class="form-control" />
-    </div>
-
-    <button type="submit" class="btn btn-success">Create</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-
-
- 

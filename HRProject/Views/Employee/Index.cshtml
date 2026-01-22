@@ -4,62 +4,96 @@
     ViewData["Title"] = "Employees";
 }
 
-<h2>Employees</h2>
+<div class="container py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">
+            <i class="bi bi-people"></i>
+            Employees List
+        </h2>
 
-@if (User.IsInRole("Admin"))
-{
-    <div class="mb-3">
-        <a asp-controller="Employee" asp-action="Create" class="btn btn-primary">
-            + Add Employee
-        </a>
-    </div>
-}
-
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Job Title</th>
-            <th>Availability</th>
-            <th>Languages</th>
-            <th>Certificates</th>
-            <th>Interests</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
+        @if (User.IsInRole("Admin"))
         {
-            <tr>
-                <td>@user.FullName</td>
-                <td>@user.Email</td>
-                <td>@user.JobTitle</td>
-                <td>@user.AvailabilityPercent%</td>
-                <td>@user.Languages</td>
-                <td>@user.Certificates</td>
-                <td>@user.Interests</td>
-                <td>
-                    <a asp-action="Edit"
-                       asp-route-id="@user.Id"
-                       class="btn btn-sm btn-warning">
-                        Edit
-                    </a>
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Delete"
-                           asp-route-id="@user.Id"
-                           class="btn btn-sm btn-danger">
-                            Delete
-                        </a>
-                    }
-                </td>
-            </tr>
+            <a asp-controller="Employee" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-person-plus"></i>
+                Add Employee
+            </a>
         }
-    </tbody>
-</table>
+    </div>
 
+    <!-- Responsive table wrapper -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th class="d-none d-md-table-cell">Job Title</th>
+                    <th>Availability</th>
+                    <th class="d-none d-lg-table-cell">Languages</th>
+                    <th class="d-none d-lg-table-cell">Certificates</th>
+                    <th class="d-none d-xl-table-cell">Interests</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
 
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>
+                            <strong>@user.FullName</strong>
+                        </td>
 
- 
+                        <td class="text-break">
+                            <a href="mailto:@user.Email">@user.Email</a>
+                        </td>
+
+                        <td class="d-none d-md-table-cell">
+                            @user.JobTitle
+                        </td>
+
+                        <td>
+                            <span class="badge bg-success">
+                                @user.AvailabilityPercent%
+                            </span>
+                        </td>
+
+                        <td class="d-none d-lg-table-cell">
+                            @user.Languages
+                        </td>
+
+                        <td class="d-none d-lg-table-cell">
+                            @user.Certificates
+                        </td>
+
+                        <td class="d-none d-xl-table-cell">
+                            @user.Interests
+                        </td>
+
+                        <td>
+                            <div class="d-flex flex-column flex-sm-row gap-1">
+                                <a asp-action="Edit"
+                                   asp-route-id="@user.Id"
+                                   class="btn btn-sm btn-warning">
+                                    <i class="bi bi-pencil"></i>
+                                    Edit
+                                </a>
+
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Delete"
+                                       asp-route-id="@user.Id"
+                                       class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i>
+                                        Delete
+                                    </a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
