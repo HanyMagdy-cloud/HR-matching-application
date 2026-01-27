@@ -12,7 +12,7 @@
             Employees List
         </h2>
 
-        @if (User.IsInRole("Admin"))
+        @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Employee"))
         {
             <a asp-controller="Employee" asp-action="Create" class="btn btn-primary">
                 <i class="bi bi-person-plus"></i>
