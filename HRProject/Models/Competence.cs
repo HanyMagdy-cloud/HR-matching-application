@@ -12,7 +12,8 @@ namespace HRProject.Models
         public string Name { get; set; }
 
         [StringLength(500)]
-        public string Description { get; set; }
+        [Required]
+        public string Description { get; set; } = string.Empty;
 
         public ICollection<UserCompetence> UserCompetences { get; set; }
     }
