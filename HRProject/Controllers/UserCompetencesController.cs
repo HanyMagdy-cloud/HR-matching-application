@@ -39,12 +39,13 @@ namespace HRProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Assign(AssignCompetenceViewModel model)
         {
+            // Always refill dropdowns before returning the view
             await FillDropdownsAsync(model);
 
-            // --- manual required checks (for clear messages) ---
-            if (string.IsNullOrWhiteSpace(model.UserEmail))
+            // --- manual required checks (clear messages) ---
+            if (string.IsNullOrWhiteSpace(model.SelectedUserId))
             {
-                ModelState.AddModelError(string.Empty, "User email is required.");
+                ModelState.AddModelError(string.Empty, "Please select an employee.");
                 return View("~/Views/Competences/Assign.cshtml", model);
             }
 
@@ -60,11 +61,11 @@ namespace HRProject.Controllers
                 return View("~/Views/Competences/Assign.cshtml", model);
             }
 
-            // --- find user ---
-            var user = await _userManager.FindByEmailAsync(model.UserEmail);
+            // --- find user by Id (NEW) ---
+            var user = await _userManager.FindByIdAsync(model.SelectedUserId);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "User not found. Email must match exactly.");
+                ModelState.AddModelError(string.Empty, "Selected user not found.");
                 return View("~/Views/Competences/Assign.cshtml", model);
             }
 
@@ -120,6 +121,7 @@ namespace HRProject.Controllers
 
         private async Task FillDropdownsAsync(AssignCompetenceViewModel model)
         {
+            // --- Competences dropdown ---
             model.Competences = await _context.Competences
                 .OrderBy(c => c.Name)
                 .Select(c => new SelectListItem
@@ -129,12 +131,25 @@ namespace HRProject.Controllers
                 })
                 .ToListAsync();
 
+            // --- Levels dropdown ---
             model.Levels = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "1", Text = "Basic" },
-                new SelectListItem { Value = "2", Text = "Intermediate" },
-                new SelectListItem { Value = "3", Text = "Advanced" }
-            };
+    {
+        new SelectListItem { Value = "1", Text = "Basic" },
+        new SelectListItem { Value = "2", Text = "Intermediate" },
+        new SelectListItem { Value = "3", Text = "Advanced" }
+    };
+
+            // --- Employees dropdown (NEW) ---
+            model.Employees = await _userManager.Users
+                .OrderBy(u => u.FullName)
+                .Select(u => new SelectListItem
+                {
+                    Value = u.Id,   // use UserId (best practice)
+                    Text = string.IsNullOrWhiteSpace(u.FullName)
+                        ? u.Email
+                        : $"{u.FullName} ({u.Email})"
+                })
+                .ToListAsync();
         }
 
         [HttpGet]
