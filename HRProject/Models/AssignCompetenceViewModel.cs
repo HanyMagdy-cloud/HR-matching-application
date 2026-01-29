@@ -6,6 +6,15 @@ namespace HRProject.Models
 {
     public class AssignCompetenceViewModel
     {
+
+        // ✅ NEW: dropdown selection
+        [Required(ErrorMessage = "Please select an employee.")]
+        [Display(Name = "Employee")]
+        public string SelectedUserId { get; set; } = string.Empty;
+
+        // ✅ NEW: dropdown list
+        public List<SelectListItem> Employees { get; set; } = new();
+
         [EmailAddress(ErrorMessage = "Please enter a valid email address.")]
         [Display(Name = "User Email")]
         public string UserEmail { get; set; }
