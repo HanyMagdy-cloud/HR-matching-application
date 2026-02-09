@@ -44,7 +44,7 @@
                             </a>
                         </li>
 
-                        @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Team Leader"))
+                        @* @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Team Leader")) *@
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="TeamLeader" asp-action="Index">
@@ -53,7 +53,7 @@
                             </li>
                         }
 
-                        @if (User.IsInRole("Admin") || User.IsInRole("HR"))
+                        @* @if (User.IsInRole("Admin") || User.IsInRole("HR")) *@
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="HR" asp-action="Index">
@@ -62,7 +62,7 @@
                             </li>
                         }
 
-                        @if (User.IsInRole("Admin"))
+                       @*  @if (User.IsInRole("Admin")) *@
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Admin" asp-action="Index">
@@ -89,8 +89,8 @@
                             </li>
                         }
 
-                        @if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("HR"))
-                        {
+@*                         @if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("HR"))
+ *@                        {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="ProjectManager" asp-action="Index">
                                     <i class="bi bi-kanban"></i> Project Manager
@@ -98,8 +98,8 @@
                             </li>
                         }
 
-                        @if (User.IsInRole("Admin") || User.IsInRole("HR"))
-                        {
+@*                         @if (User.IsInRole("Admin") || User.IsInRole("HR"))
+ *@                        {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Competences" asp-action="Index">
                                     <i class="bi bi-list-check"></i> Competences
@@ -107,8 +107,8 @@
                             </li>
                         }
 
-                        @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Employee"))
-                        {
+@*                         @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Employee"))
+ *@                        {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Employee" asp-action="Index">
                                     <i class="bi bi-person-badge"></i> Employee
@@ -116,8 +116,8 @@
                             </li>
                         }
 
-                        @if (User.Identity?.IsAuthenticated == true &&
-                                                User.Claims.Any(c => c.Type == System.Security.Claims.ClaimTypes.Role))
+                         @* @if (User.Identity?.IsAuthenticated == true &&
+                                                User.Claims.Any(c => c.Type == System.Security.Claims.ClaimTypes.Role)) *@
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="UserCompetences" asp-action="AllUserCompetences">
